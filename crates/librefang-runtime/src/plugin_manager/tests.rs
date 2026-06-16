@@ -13,6 +13,14 @@ fn test_plugins_dir() {
 }
 
 #[test]
+fn test_plugins_dir_with_env() {
+    std::env::set_var("LIBREFANG_HOME", ".test");
+    let dir = plugins_dir();
+    assert!(dir.ends_with("plugins"));
+    assert!(dir.to_string_lossy().contains(".test"));
+}
+
+#[test]
 fn test_list_plugins_no_panic() {
     // Should not panic even if plugins dir doesn't exist
     let _ = list_plugins();
